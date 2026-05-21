@@ -82,6 +82,12 @@ public class Estudiante {
     
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
-    }    
+    }
+
+    @Override
+    public String toString() {
+        return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", genero=" + genero
+                + ", fechaNacimiento=" + fechaNacimiento + "]";
+    }
 
 }

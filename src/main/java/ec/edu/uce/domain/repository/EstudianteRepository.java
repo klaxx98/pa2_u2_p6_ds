@@ -8,6 +8,6 @@ public interface EstudianteRepository {
     public void create(Estudiante estudiante);
     public Estudiante selectById(Integer id);
     public void update(Estudiante estudiante);
-    public void delete(Integer id);
+    public void deleteById(Integer id);
 
 }
