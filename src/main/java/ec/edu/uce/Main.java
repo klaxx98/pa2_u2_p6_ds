@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import ec.edu.uce.application.service.EstudianteService;
 import ec.edu.uce.application.service.ProfesorService;
 import ec.edu.uce.domain.model.Estudiante;
-import ec.edu.uce.domain.model.Profesor;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -35,16 +34,34 @@ public class Main {
             ESTUDIANTE
             */
 
+            System.out.println("\n***Guardar Estudiante***\n");
+
             Estudiante estudiante = new Estudiante();
             estudiante.setNombre("Juan");
             estudiante.setApellido("Perez");
             estudiante.setGenero("M");
             estudiante.setFechaNacimiento(LocalDate.of(2000, 01, 01));
+            estudiante.setCedula("1234567890");
 
             this.estudianteService.guardar(estudiante);
 
-            System.out.println(this.estudianteService.buscarPorId(1));
+            System.out.println("\n***Buscar por id***\n");
+
             System.out.println(this.estudianteService.buscarPorId(2));
+
+            System.out.println("\n***Listar todos los estudiantes***\n");
+
+            this.estudianteService.listarTodos().forEach(System.out::println);
+
+            System.out.println("\n***Buscar por nombre***\n");
+
+            this.estudianteService.buscarPorNombre("David").forEach(System.out::println);
+
+            System.out.println("\n***Buscar por cedula***\n");
+
+            System.out.println(this.estudianteService.buscarPorCedula("1234567890"));
+
+            System.out.println("\n***Actualizar estudiante***\n");
 
             Estudiante estudianteActualizar = new Estudiante();
             estudianteActualizar.setId(2);
@@ -52,9 +69,12 @@ public class Main {
             estudianteActualizar.setApellido("Gomez");
             estudianteActualizar.setGenero("F");
             estudianteActualizar.setFechaNacimiento(LocalDate.of(2001, 02, 02));
+            estudianteActualizar.setCedula("0987654321");
 
             this.estudianteService.actualizar(estudianteActualizar);
             System.out.println(this.estudianteService.buscarPorId(2));
+
+            System.out.println("\n***Eliminar estudiante***\n");
 
             this.estudianteService.eliminarPorId(2);
             System.out.println(this.estudianteService.buscarPorId(2));
@@ -62,6 +82,8 @@ public class Main {
             /*
             PROFESOR
             */
+
+            /* System.out.println("\n***Profesor***\n");
 
             Profesor profesor1 = new Profesor();
             profesor1.setNombre("Edison");
@@ -89,7 +111,7 @@ public class Main {
             System.out.println(this.profesorService.buscarPorId(2));
 
             this.profesorService.eliminarPorId(2);
-            System.out.println(this.profesorService.buscarPorId(2));
+            System.out.println(this.profesorService.buscarPorId(2)); */
 
             System.out.println("***Cerrando app***");
 

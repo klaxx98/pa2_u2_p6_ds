@@ -31,13 +31,17 @@ public class Estudiante {
 
     @Column(name="estu_fecha_nacimiento")
     private LocalDate fechaNacimiento;
+
+    @Column(name="estu_cedula")
+    private String cedula;
     
-    public Estudiante(Integer id, String nombre, String apellido, String genero, LocalDate fechaNacimiento) {
+    public Estudiante(Integer id, String nombre, String apellido, String genero, LocalDate fechaNacimiento, String cedula) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.genero = genero;
         this.fechaNacimiento = fechaNacimiento;
+        this.cedula = cedula;
     }
 
     public Estudiante() {
@@ -84,10 +88,18 @@ public class Estudiante {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
     @Override
     public String toString() {
         return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", genero=" + genero
-                + ", fechaNacimiento=" + fechaNacimiento + "]";
+                + ", fechaNacimiento=" + fechaNacimiento + ", cedula=" + cedula + "]";
     }
 
 }
