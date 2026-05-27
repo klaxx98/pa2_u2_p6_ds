@@ -24,16 +24,20 @@ public class Profesor {
     @Column(name="prof_apellido")
     private String apellido;
 
+    @Column(name="prof_cedula")
+    private String cedula;
+
     @Column(name="prof_genero")
     private String genero;
 
     @Column(name="prof_especialidad")
     private String especialidad;
 
-    public Profesor(Integer id, String nombre, String apellido, String genero, String especialidad) {
+    public Profesor(Integer id, String nombre, String apellido, String cedula, String genero, String especialidad) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.cedula = cedula;
         this.genero = genero;
         this.especialidad = especialidad;
     }
@@ -82,9 +86,17 @@ public class Profesor {
         this.especialidad = especialidad;
     }
 
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
     @Override
     public String toString() {
-        return "Profesor [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", genero=" + genero
+        return "Profesor [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", cedula=" + cedula + ", genero=" + genero
                 + ", especialidad=" + especialidad + "]";
     }
 
