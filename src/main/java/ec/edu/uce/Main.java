@@ -1,8 +1,10 @@
 package ec.edu.uce;
 
+import java.time.LocalDate;
+
 import ec.edu.uce.application.service.EstudianteService;
 import ec.edu.uce.application.service.ProfesorService;
-import ec.edu.uce.domain.model.Profesor;
+import ec.edu.uce.domain.model.Estudiante;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -32,7 +34,7 @@ public class Main {
             ESTUDIANTE
             */
 
-            /* System.out.println("\n***Guardar Estudiante***\n");
+            System.out.println("\n***Guardar Estudiante***\n");
 
             Estudiante estudiante = new Estudiante();
             estudiante.setNombre("Juan");
@@ -75,13 +77,21 @@ public class Main {
             System.out.println("\n***Eliminar estudiante***\n");
 
             this.estudianteService.eliminarPorId(2);
-            System.out.println(this.estudianteService.buscarPorId(2)); */
+            System.out.println(this.estudianteService.buscarPorId(2));
+
+            System.out.println("\n***TypedQueries y NamedQueries***\n");
+
+            this.estudianteService.buscarPorGenero("M").forEach(System.out::println);
+            this.estudianteService.buscarPorGenero2("M").forEach(System.out::println);
+            this.estudianteService.buscarPorApellido("Salazar").forEach(System.out::println);
+            this.estudianteService.buscarPorRangoFechas(LocalDate.of(1996, 01, 01), LocalDate.of(2000, 12, 31)).forEach(System.out::println);
+            System.out.println("Número de estudiantes: " + this.estudianteService.seleccionarContar());
 
             /*
             PROFESOR
             */
 
-            System.out.println("\n***Profesor***\n");
+            /* System.out.println("\n***Profesor***\n");
 
             Profesor profesor1 = new Profesor();
             profesor1.setNombre("Edison");
@@ -114,12 +124,12 @@ public class Main {
 
             System.out.println(this.profesorService.buscarPorCedula("5544332211"));
 
-            System.out.println(this.profesorService.buscarPorEspecialidad("Ingenieria de software"));
+            System.out.println(this.profesorService.buscarPorEspecialidad("Ingenieria de software")); */
 
             /* this.profesorService.eliminarPorId(2);
             System.out.println(this.profesorService.buscarPorId(2)); */
 
-            System.out.println("***Cerrando app***");
+            System.out.println("\n***Cerrando app***\n");
 
             return 0;
             
