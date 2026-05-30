@@ -87,6 +87,10 @@ public class Main {
             this.estudianteService.buscarPorRangoFechas(LocalDate.of(1996, 01, 01), LocalDate.of(2000, 12, 31)).forEach(System.out::println);
             System.out.println("Número de estudiantes: " + this.estudianteService.seleccionarContar());
 
+            System.out.println("\n***NativeQuery***\n");
+
+            this.estudianteService.listarTodosNative().forEach(System.out::println);
+
             /*
             PROFESOR
             */

@@ -74,6 +74,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
     // 2. NamedQuery: SQL (Structured Query Language)
     // Declarado a nivel de entidad, con @NamedQuery: Estudiante
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Estudiante> selectByGenero(String genero) {
         Query myQuery = this.em.createNamedQuery("Estudiante.buscarPorGenero");
@@ -112,6 +113,16 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
         TypedQuery<Long> myQuery = this.em.createNamedQuery("Estudiante.contar", Long.class);
         return myQuery.getSingleResult();
 
+    }
+
+    // 3. NativeQuery: SQL (Structured Query Language)
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Estudiante> selectAllNative() {
+        Query myQuery = this.em.createNativeQuery("SELECT * FROM estudiante", Estudiante.class);
+        return myQuery.getResultList();
+        
     }
 
 }

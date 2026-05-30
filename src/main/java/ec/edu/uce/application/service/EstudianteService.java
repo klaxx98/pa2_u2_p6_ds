@@ -76,4 +76,9 @@ public class EstudianteService {
 
     }
 
+    public List<Estudiante> listarTodosNative() {
+        return this.estudianteRepository.selectAllNative();
+        
+    }
+
 }
