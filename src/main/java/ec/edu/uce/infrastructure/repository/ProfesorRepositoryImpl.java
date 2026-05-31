@@ -8,6 +8,7 @@ import ec.edu.uce.domain.repository.ProfesorRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 @ApplicationScoped
@@ -121,6 +122,43 @@ public class ProfesorRepositoryImpl implements ProfesorRepository {
         TypedQuery<Long> myQuery = this.em.createNamedQuery("Profesor.contar", Long.class);
         return myQuery.getSingleResult();
 
+    }
+
+    // NativeQuery
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Profesor> selectAllNative() {
+        Query myQuery = this.em.createNativeQuery("SELECT * FROM profesor", Profesor.class);
+        return myQuery.getResultList();
+
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Profesor> selectByApellidoNative(String apellido) {
+        Query myQuery = this.em.createNativeQuery("SELECT * FROM profesor WHERE prof_apellido = :apellido", Profesor.class);
+        myQuery.setParameter("apellido", apellido);
+        return myQuery.getResultList();
+        
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Profesor> selectByFacultadNative(String facultad) {
+        Query myQuery = this.em.createNativeQuery("SELECT * FROM profesor WHERE prof_facultad = :facultad", Profesor.class);
+        myQuery.setParameter("facultad", facultad);
+        return myQuery.getResultList();
+
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Profesor> selectByEspecialidadNative(String especialidad) {
+        Query myQuery = this.em.createNativeQuery("SELECT * FROM profesor WHERE prof_especialidad = :especialidad", Profesor.class);
+        myQuery.setParameter("especialidad", especialidad);
+        return myQuery.getResultList();
+        
     }
 
 }

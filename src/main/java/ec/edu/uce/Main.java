@@ -87,14 +87,21 @@ public class Main {
 
             this.profesorService.guardar(profesor2);
 
-            System.out.println("\n***NamedQuery***\n");
+            /* System.out.println("\n***NamedQuery***\n");
 
             this.profesorService.buscarPorGenero("M").forEach(System.out::println);
             this.profesorService.buscarPorApellido("Cayambe").forEach(System.out::println);
             this.profesorService.buscarPorRangoFechas(LocalDate.of(1975, 01, 01), LocalDate.of(1984, 12, 31)).forEach(System.out::println);
             this.profesorService.buscarPorFacultad("FING").forEach(System.out::println);
             this.profesorService.buscarPorEspecialidadNamed("Programacion avanzada II").forEach(System.out::println);
-            System.out.println("Número de profesores: " + this.profesorService.seleccionarContar());
+            System.out.println("Número de profesores: " + this.profesorService.seleccionarContar()); */
+
+            System.out.println("\n***NativeQuery***\n");
+
+            this.profesorService.listarTodosNative().forEach(System.out::println);
+            this.profesorService.buscarPorApellidoNative("Cayambe").forEach(System.out::println);
+            this.profesorService.buscarPorFacultadNative("FING").forEach(System.out::println);
+            this.profesorService.buscarPorEspecialidadNative("Programacion avanzada II").forEach(System.out::println);
 
             System.out.println("\n***Cerrando app***\n");
 

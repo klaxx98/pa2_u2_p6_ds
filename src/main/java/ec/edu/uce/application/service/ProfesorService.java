@@ -86,4 +86,24 @@ public class ProfesorService {
     
     }
 
+    public List<Profesor> listarTodosNative() {
+        return this.profesorRepository.selectAllNative();
+        
+    }
+
+    public List<Profesor> buscarPorApellidoNative(String apellido) {
+        return this.profesorRepository.selectByApellidoNative(apellido);
+        
+    }
+
+    public List<Profesor> buscarPorFacultadNative(String facultad) {
+        return this.profesorRepository.selectByFacultadNative(facultad);
+        
+    }
+
+    public List<Profesor> buscarPorEspecialidadNative(String especialidad) {
+        return this.profesorRepository.selectByEspecialidadNative(especialidad);
+        
+    }
+
 }

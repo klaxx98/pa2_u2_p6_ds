@@ -25,4 +25,9 @@ public interface ProfesorRepository {
     public List<Profesor> selectByEspecialidadNamed(String especialidad);
     public Long seleccionarContar();
 
+    public List<Profesor> selectAllNative();
+    public List<Profesor> selectByApellidoNative(String apellido);
+    public List<Profesor> selectByFacultadNative(String facultad);
+    public List<Profesor> selectByEspecialidadNative(String especialidad);
+
 }
