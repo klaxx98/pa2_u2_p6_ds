@@ -1,5 +1,6 @@
 package ec.edu.uce.infrastructure.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import ec.edu.uce.domain.model.Profesor;
@@ -39,6 +40,8 @@ public class ProfesorRepositoryImpl implements ProfesorRepository {
     
     }
 
+    // TypedQuery
+
     @Override
     public List<Profesor> selectAll() {
         TypedQuery<Profesor> myQuery = this.em.createQuery("SELECT p FROM Profesor p", Profesor.class);
@@ -68,6 +71,56 @@ public class ProfesorRepositoryImpl implements ProfesorRepository {
         myQuery.setParameter("especialidad", especialidad);
         return myQuery.getSingleResult();
         
+    }
+
+    // NamedQuery
+
+    @Override
+    public List<Profesor> selectByGenero(String genero) {
+        TypedQuery<Profesor> myQuery = this.em.createNamedQuery("Profesor.buscarPorGenero", Profesor.class);
+        myQuery.setParameter("genero", genero);
+        return myQuery.getResultList();
+        
+    }
+
+    @Override
+    public List<Profesor> selectByApellido(String apellido) {
+        TypedQuery<Profesor> myQuery = this.em.createNamedQuery("Profesor.buscarPorApellido", Profesor.class);
+        myQuery.setParameter("apellido", apellido);
+        return myQuery.getResultList();
+    
+    }
+
+    @Override
+    public List<Profesor> selectByRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) {
+        TypedQuery<Profesor> myQuery = this.em.createNamedQuery("Profesor.buscarPorRangoFecha", Profesor.class);
+        myQuery.setParameter("inicio", fechaInicio);
+        myQuery.setParameter("fin", fechaFin);
+        return myQuery.getResultList();
+
+    }
+
+    @Override
+    public List<Profesor> selectByFacultad(String facultad) {
+        TypedQuery<Profesor> myQuery = this.em.createNamedQuery("Profesor.buscarPorFacultad", Profesor.class);
+        myQuery.setParameter("facultad", facultad);
+        return myQuery.getResultList();
+
+    }
+
+    @Override
+    public List<Profesor> selectByEspecialidadNamed(String especialidad) {
+        TypedQuery<Profesor> myQuery = this.em.createNamedQuery("Profesor.buscarPorEspecialidad", Profesor.class);
+        myQuery.setParameter("especialidad", especialidad);
+        return myQuery.getResultList();
+        
+    }
+
+    @Override
+    public Long seleccionarContar() {
+        TypedQuery<Long> myQuery = this.em.createNamedQuery("Profesor.contar", Long.class);
+        return myQuery.getSingleResult();
+
     }
 
 }
