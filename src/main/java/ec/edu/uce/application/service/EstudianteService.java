@@ -81,4 +81,19 @@ public class EstudianteService {
         
     }
 
+    public List<Estudiante> listarTodosCriteria() {
+        return this.estudianteRepository.selectAllCriteria();
+
+    }
+
+    public List<Estudiante> buscarPorNombreCriteria(String nombre) {
+        return this.estudianteRepository.selectByNombreCriteria(nombre);
+
+    }
+
+    public List<Estudiante> buscarDynamicCriteria(String nombre, String apellido) {
+        return this.estudianteRepository.selectDynamicCriteria(nombre, apellido);
+
+    }
+
 }

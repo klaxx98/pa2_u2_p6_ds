@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import ec.edu.uce.application.service.EstudianteService;
 import ec.edu.uce.application.service.ProfesorService;
-import ec.edu.uce.domain.model.Profesor;
+import ec.edu.uce.domain.model.Estudiante;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -34,7 +34,7 @@ public class Main {
             ESTUDIANTE
             */
 
-            /* System.out.println("\n***Guardar Estudiante***\n");
+            System.out.println("\n***Guardar Estudiante***\n");
 
             Estudiante estudiante = new Estudiante();
             estudiante.setNombre("Juan");
@@ -45,7 +45,7 @@ public class Main {
 
             this.estudianteService.guardar(estudiante);
 
-            System.out.println("\n***TypedQueries y NamedQueries***\n");
+            /* System.out.println("\n***TypedQueries y NamedQueries***\n");
 
             this.estudianteService.buscarPorGenero("M").forEach(System.out::println);
             this.estudianteService.buscarPorGenero2("M").forEach(System.out::println);
@@ -57,11 +57,20 @@ public class Main {
 
             this.estudianteService.listarTodosNative().forEach(System.out::println); */
 
+            System.out.println("\n***Criteria API Query***\n");
+            //this.estudianteService.listarTodosCriteria().forEach(System.out::println);
+            //this.estudianteService.buscarPorNombreCriteria("David").forEach(System.out::println);
+
+            this.estudianteService.buscarDynamicCriteria("David", "Salazar").forEach(System.out::println);
+            this.estudianteService.buscarDynamicCriteria("David", null).forEach(System.out::println);
+            this.estudianteService.buscarDynamicCriteria(null, "Salazar").forEach(System.out::println);
+            this.estudianteService.buscarDynamicCriteria(null, null).forEach(System.out::println);
+
             /*
             PROFESOR
             */
 
-            System.out.println("\n***Profesor***\n");
+            /* System.out.println("\n***Profesor***\n");
 
             Profesor profesor1 = new Profesor();
             profesor1.setNombre("Edison");
@@ -87,21 +96,21 @@ public class Main {
 
             this.profesorService.guardar(profesor2);
 
-            /* System.out.println("\n***NamedQuery***\n");
+            System.out.println("\n***NamedQuery***\n");
 
             this.profesorService.buscarPorGenero("M").forEach(System.out::println);
             this.profesorService.buscarPorApellido("Cayambe").forEach(System.out::println);
             this.profesorService.buscarPorRangoFechas(LocalDate.of(1975, 01, 01), LocalDate.of(1984, 12, 31)).forEach(System.out::println);
             this.profesorService.buscarPorFacultad("FING").forEach(System.out::println);
             this.profesorService.buscarPorEspecialidadNamed("Programacion avanzada II").forEach(System.out::println);
-            System.out.println("Número de profesores: " + this.profesorService.seleccionarContar()); */
+            System.out.println("Número de profesores: " + this.profesorService.seleccionarContar());
 
             System.out.println("\n***NativeQuery***\n");
 
             this.profesorService.listarTodosNative().forEach(System.out::println);
             this.profesorService.buscarPorApellidoNative("Cayambe").forEach(System.out::println);
             this.profesorService.buscarPorFacultadNative("FING").forEach(System.out::println);
-            this.profesorService.buscarPorEspecialidadNative("Programacion avanzada II").forEach(System.out::println);
+            this.profesorService.buscarPorEspecialidadNative("Programacion avanzada II").forEach(System.out::println); */
 
             System.out.println("\n***Cerrando app***\n");
 

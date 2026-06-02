@@ -25,4 +25,8 @@ public interface EstudianteRepository {
 
     public List<Estudiante> selectAllNative();
 
+    public List<Estudiante> selectAllCriteria();
+    public List<Estudiante> selectByNombreCriteria(String nombre);
+    public List<Estudiante> selectDynamicCriteria(String nombre, String apellido);
+
 }
