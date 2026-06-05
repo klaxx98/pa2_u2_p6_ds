@@ -1,6 +1,7 @@
 package ec.edu.uce.infrastructure.repository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import ec.edu.uce.domain.model.Profesor;
@@ -10,6 +11,10 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 @ApplicationScoped
 public class ProfesorRepositoryImpl implements ProfesorRepository {
@@ -160,5 +165,81 @@ public class ProfesorRepositoryImpl implements ProfesorRepository {
         return myQuery.getResultList();
         
     }
+
+    // Criteria API Query
+
+	@Override
+	public List<Profesor> selectAllCriteria() {
+		CriteriaBuilder cb = this.em.getCriteriaBuilder();
+        CriteriaQuery<Profesor> myQuery = cb.createQuery(Profesor.class);
+        Root<Profesor> root = myQuery.from(Profesor.class);
+        myQuery.select(root);
+        
+        TypedQuery<Profesor> query = this.em.createQuery(myQuery);
+        return query.getResultList();
+
+    }
+
+	@Override
+	public List<Profesor> selectByNombreCriteria(String nombre) {
+        CriteriaBuilder cb = this.em.getCriteriaBuilder();
+        CriteriaQuery<Profesor> myQuery = cb.createQuery(Profesor.class);
+        Root<Profesor> root = myQuery.from(Profesor.class);
+        Predicate p1 = cb.equal(root.get("nombre"), nombre);
+        myQuery.select(root).where(p1);
+
+        TypedQuery<Profesor> query = this.em.createQuery(myQuery);
+        return query.getResultList();
+
+    }
+
+	@Override
+	public List<Profesor> selectByFacultadCriteria(String facultad) {
+		CriteriaBuilder cb = this.em.getCriteriaBuilder();
+        CriteriaQuery<Profesor> myQuery = cb.createQuery(Profesor.class);
+        Root<Profesor> root = myQuery.from(Profesor.class);
+        Predicate p2 = cb.equal(root.get("facultad"), facultad);
+        myQuery.select(root).where(p2);
+
+        TypedQuery<Profesor> query = this.em.createQuery(myQuery);
+        return query.getResultList();
+
+	}
+
+	@Override
+	public List<Profesor> selectByEspecialidadCriteria(String especialidad) {
+		CriteriaBuilder cb = this.em.getCriteriaBuilder();
+        CriteriaQuery<Profesor> myQuery = cb.createQuery(Profesor.class);
+        Root<Profesor> root = myQuery.from(Profesor.class);
+        Predicate p3 = cb.equal(root.get("especialidad"), especialidad);
+        myQuery.select(root).where(p3);
+
+        TypedQuery<Profesor> query = this.em.createQuery(myQuery);
+        return query.getResultList();
+
+	}
+
+	@Override
+	public List<Profesor> selectDynamicCriteria(String nombre, String apellido) {
+		CriteriaBuilder cb = this.em.getCriteriaBuilder();
+        CriteriaQuery<Profesor> myQuery = cb.createQuery(Profesor.class);
+        Root<Profesor> root = myQuery.from(Profesor.class);
+
+        List<Predicate> condiciones = new ArrayList<>();
+
+        if (nombre != null) {
+            Predicate p1 = cb.equal(root.get("nombre"), nombre);
+            condiciones.add(p1);
+        } if (apellido != null) {
+            Predicate p2 = cb.equal(root.get("apellido"), apellido);
+            condiciones.add(p2);
+        }
+
+        myQuery.select(root).where(condiciones);
+
+        TypedQuery<Profesor> query = this.em.createQuery(myQuery);
+        return query.getResultList();
+        
+	}
 
 }

@@ -106,4 +106,29 @@ public class ProfesorService {
         
     }
 
+    public List<Profesor> listarTodosCriteria() {
+        return this.profesorRepository.selectAllCriteria();
+
+    }
+
+    public List<Profesor> buscarPorNombreCriteria(String nombre) {
+        return this.profesorRepository.selectByNombreCriteria(nombre);
+
+    }
+
+    public List<Profesor> buscarPorFacultadCriteria(String facultad) {
+        return this.profesorRepository.selectByFacultadCriteria(facultad);
+
+    }
+
+    public List<Profesor> buscarPorEspecialidadCriteria(String especialidad) {
+        return this.profesorRepository.selectByEspecialidadCriteria(especialidad);
+        
+    }
+
+    public List<Profesor> buscarDynamicCriteria(String nombre, String apellido) {
+        return this.profesorRepository.selectDynamicCriteria(nombre, apellido);
+        
+    }
+
 }

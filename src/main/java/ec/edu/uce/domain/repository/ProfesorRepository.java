@@ -30,4 +30,10 @@ public interface ProfesorRepository {
     public List<Profesor> selectByFacultadNative(String facultad);
     public List<Profesor> selectByEspecialidadNative(String especialidad);
 
+    public List<Profesor> selectAllCriteria();
+    public List<Profesor> selectByNombreCriteria(String nombre);
+    public List<Profesor> selectByFacultadCriteria(String facultad);
+    public List<Profesor> selectByEspecialidadCriteria(String especialidad);
+    public List<Profesor> selectDynamicCriteria(String nombre, String apellido);
+
 }
