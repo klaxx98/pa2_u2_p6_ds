@@ -1,7 +1,11 @@
 package ec.edu.uce;
 
+import java.time.LocalDateTime;
+
+import ec.edu.uce.application.service.CiudadanoService;
 import ec.edu.uce.application.service.EstudianteService;
 import ec.edu.uce.application.service.ProfesorService;
+import ec.edu.uce.domain.model.Ciudadano;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -22,35 +26,22 @@ public class Main {
         @Inject
         private ProfesorService profesorService;
 
+        @Inject
+        private CiudadanoService ciudadanoService;
+
         @Override
         public int run(String... args) throws Exception {
 
             System.out.println("***Abriendo app***");
 
             /*
-            ESTUDIANTE
+            CIUDADANO
             */
+            Ciudadano ciudadano = new Ciudadano();
+            ciudadano.setNombre("David Salazar");
+            ciudadano.setFechaNacimiento(LocalDateTime.now());
 
-            /* System.out.println("\n***Criteria API Query***\n");
-            this.estudianteService.listarTodosCriteria().forEach(System.out::println);
-            this.estudianteService.buscarPorNombreCriteria("David").forEach(System.out::println);
-
-            this.estudianteService.buscarDynamicCriteria("David", "Salazar").forEach(System.out::println);
-            this.estudianteService.buscarDynamicCriteria("David", null).forEach(System.out::println);
-            this.estudianteService.buscarDynamicCriteria(null, "Salazar").forEach(System.out::println);
-            this.estudianteService.buscarDynamicCriteria(null, null).forEach(System.out::println); */
-
-            /*
-            PROFESOR
-            */
-
-            System.out.println("\n***Criteria API***\n");
-
-            this.profesorService.listarTodosCriteria().forEach(System.out::println);
-            this.profesorService.buscarPorNombreCriteria("Edison").forEach(System.out::println);
-            this.profesorService.buscarPorFacultad("FING").forEach(System.out::println);
-            this.profesorService.buscarPorEspecialidadCriteria("Base de datos II").forEach(System.out::println);
-            this.profesorService.buscarDynamicCriteria("Edison", "Cayambe").forEach(System.out::println);
+            this.ciudadanoService.guardar(ciudadano);
 
             System.out.println("\n***Cerrando app***\n");
 
