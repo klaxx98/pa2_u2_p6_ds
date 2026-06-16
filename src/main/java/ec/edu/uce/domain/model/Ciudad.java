@@ -15,12 +15,12 @@ public class Ciudad {
     @Id
     @SequenceGenerator(name="seq_ciudad_generador", sequenceName="seq_ciudad", allocationSize=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator= "seq_ciudad_generador")
-    @Column(name="ciud_id")
+    @Column(name="ciudad_id")
     private Integer id;
 
-    @Column(name="ciud_codigo")
+    @Column(name="ciudad_codigo")
     private String codigo;
-    @Column(name="ciud_nombre")
+    @Column(name="ciudad_nombre")
     private String nombre;
 
     public Ciudad(Integer id, String codigo, String nombre) {

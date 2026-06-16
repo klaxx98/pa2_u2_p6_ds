@@ -1,14 +1,15 @@
 package ec.edu.uce;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import ec.edu.uce.application.service.AlcaldeService;
 import ec.edu.uce.application.service.CiudadService;
 import ec.edu.uce.application.service.CiudadanoService;
+import ec.edu.uce.application.service.EmpleadoService;
 import ec.edu.uce.application.service.EstudianteService;
 import ec.edu.uce.application.service.ProfesorService;
-import ec.edu.uce.domain.model.Alcalde;
-import ec.edu.uce.domain.model.Ciudad;
+import ec.edu.uce.domain.model.Ciudadano;
+import ec.edu.uce.domain.model.Empleado;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -38,37 +39,31 @@ public class Main {
         @Inject
         private CiudadService ciudadService;
 
+        @Inject
+        private EmpleadoService empleadoService;
+
         @Override
         public int run(String... args) throws Exception {
 
             System.out.println("***Abriendo app***");
 
             /*
-            CIUDAD
+            CIUDADANO
             */
+            Ciudadano ciudadano = new Ciudadano();
+            ciudadano.setNombre("Ciudadano 1");
+            ciudadano.setFechaNacimiento(LocalDateTime.of(2000, 01, 01, 15, 30));
 
-            Ciudad ciudad = new Ciudad();
-            ciudad.setId(1);
-            ciudad.setCodigo("UIO");
-            ciudad.setNombre("Quito");
-            
-            this.ciudadService.crearCiudad(ciudad);
+            //this.ciudadanoService.guardar(ciudadano);
 
             /*
-            ALCALDE
+            EMPLEADO
             */
+            Empleado empleado = new Empleado();
+            empleado.setSalario(null);
+            empleado.setFechaIngreso(LocalDateTime.now());
 
-            Alcalde alcalde = new Alcalde();
-            alcalde.setId(1);
-            alcalde.setNombre("Pabel Muñoz");
-            alcalde.setPartido("RC");
-            alcalde.setFechaPosesion(LocalDate.now());
-            alcalde.setCiudad(ciudad);
-
-            this.alcaldeService.crearAlcalde(alcalde);
-
-            this.ciudadService.buscarPorNombre("Quito").forEach(System.out::println);
-            this.alcaldeService.buscarPorNombre("Pabel Muñoz").forEach(System.out::println);
+            this.empleadoService.guardar(empleado);
 
             System.out.println("\n***Cerrando app***\n");
 

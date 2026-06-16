@@ -2,6 +2,7 @@ package ec.edu.uce.domain.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class Empleado {
     @Column(name="empl_fecha_ingreso")
     private LocalDateTime fechaIngreso;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="empl_ciudadano")
     private Ciudadano ciudadano;
 
