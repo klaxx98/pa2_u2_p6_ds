@@ -1,15 +1,11 @@
 package ec.edu.uce;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import ec.edu.uce.application.service.AlcaldeService;
 import ec.edu.uce.application.service.CiudadService;
-import ec.edu.uce.application.service.CiudadanoService;
-import ec.edu.uce.application.service.EmpleadoService;
-import ec.edu.uce.application.service.EstudianteService;
-import ec.edu.uce.application.service.ProfesorService;
-import ec.edu.uce.domain.model.Ciudadano;
-import ec.edu.uce.domain.model.Empleado;
+import ec.edu.uce.domain.model.Alcalde;
+import ec.edu.uce.domain.model.Ciudad;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -25,22 +21,10 @@ public class Main {
     public static class App implements QuarkusApplication {
 
         @Inject
-        private EstudianteService estudianteService;
-
-        @Inject
-        private ProfesorService profesorService;
-
-        @Inject
-        private CiudadanoService ciudadanoService;
-
-        @Inject
         private AlcaldeService alcaldeService;
 
         @Inject
         private CiudadService ciudadService;
-
-        @Inject
-        private EmpleadoService empleadoService;
 
         @Override
         public int run(String... args) throws Exception {
@@ -48,22 +32,38 @@ public class Main {
             System.out.println("***Abriendo app***");
 
             /*
-            CIUDADANO
+            CIUDAD
             */
-            Ciudadano ciudadano = new Ciudadano();
-            ciudadano.setNombre("Ciudadano 1");
-            ciudadano.setFechaNacimiento(LocalDateTime.of(2000, 01, 01, 15, 30));
+            Ciudad ciudad1 = new Ciudad();
+            ciudad1.setCodigo("UIO");
+            ciudad1.setNombre("Quito");
 
-            //this.ciudadanoService.guardar(ciudadano);
+            this.ciudadService.crearCiudad(ciudad1);
 
             /*
-            EMPLEADO
+            ALCALDE
             */
-            Empleado empleado = new Empleado();
-            empleado.setSalario(null);
-            empleado.setFechaIngreso(LocalDateTime.now());
+            Alcalde alcalde1 = new Alcalde();
+            alcalde1.setNombre("Pabel Muñoz");
+            alcalde1.setPartido("RC");
+            alcalde1.setFechaPosesion(LocalDate.now());
+            alcalde1.setCiudad(ciudad1);
 
-            this.empleadoService.guardar(empleado);
+            this.alcaldeService.crearAlcalde(alcalde1);
+
+            /*
+            CIUDAD ALCALDE
+            */
+            Ciudad ciudad2 = new Ciudad();
+            ciudad2.setCodigo("GYE");
+            ciudad2.setNombre("Guayaquil");
+
+            Alcalde alcalde2 = new Alcalde();
+            alcalde2.setNombre("Alquiles Alvarez");
+            alcalde2.setPartido("RC");
+            alcalde2.setFechaPosesion(LocalDate.now());
+
+            this.alcaldeService.crearAlcaldeCiudad(alcalde2, ciudad2);
 
             System.out.println("\n***Cerrando app***\n");
 

@@ -2,6 +2,7 @@ package ec.edu.uce.domain.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,16 +32,15 @@ public class Alcalde {
     @Column(name="alca_fecha_posesion")
     private LocalDate fechaPosesion;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name="alca_ciudad")
     private Ciudad ciudad;
 
-    public Alcalde(Integer id, String nombre, String partido, LocalDate fechaPosesion, Ciudad ciudad) {
+    public Alcalde(Integer id, String nombre, String partido, LocalDate fechaPosesion) {
         this.id = id;
         this.nombre = nombre;
         this.partido = partido;
         this.fechaPosesion = fechaPosesion;
-        this.ciudad = ciudad;
 
     }
 
