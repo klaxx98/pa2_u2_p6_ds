@@ -17,6 +17,7 @@ public class AlcaldeService {
     @Inject
     private AlcaldeRepository alcaldeRepository;
 
+    @Inject
     private CiudadRepository ciudadRepository;
 
     public void crearAlcalde(Alcalde alcalde) {
