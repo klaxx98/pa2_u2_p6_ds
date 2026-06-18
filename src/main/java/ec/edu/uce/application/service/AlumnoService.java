@@ -1,0 +1,21 @@
+package ec.edu.uce.application.service;
+
+import ec.edu.uce.domain.model.Alumno;
+import ec.edu.uce.domain.repository.AlumnoRepository;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+
+@ApplicationScoped
+@Transactional
+public class AlumnoService {
+
+    @Inject
+    private AlumnoRepository alumnoRepository;
+
+    public void crearAlumno(Alumno alumno) {
+        this.alumnoRepository.create(alumno);
+        
+    }
+
+}
