@@ -1,11 +1,12 @@
 package ec.edu.uce;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-import ec.edu.uce.application.service.AlcaldeService;
-import ec.edu.uce.application.service.CiudadService;
-import ec.edu.uce.domain.model.Alcalde;
-import ec.edu.uce.domain.model.Ciudad;
+import ec.edu.uce.application.service.ClienteService;
+import ec.edu.uce.domain.model.Cliente;
+import ec.edu.uce.domain.model.Pedido;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -21,10 +22,7 @@ public class Main {
     public static class App implements QuarkusApplication {
 
         @Inject
-        private AlcaldeService alcaldeService;
-
-        @Inject
-        private CiudadService ciudadService;
+        private ClienteService clienteService;
 
         @Override
         public int run(String... args) throws Exception {
@@ -32,38 +30,34 @@ public class Main {
             System.out.println("***Abriendo app***");
 
             /*
-            CIUDAD
+            Cliente
             */
-            Ciudad ciudad1 = new Ciudad();
-            ciudad1.setCodigo("UIO");
-            ciudad1.setNombre("Quito");
-
-            this.ciudadService.crearCiudad(ciudad1);
+            Cliente cliente = new Cliente();
+            cliente.setCedula("1234567890");
+            cliente.setNombre("David");
 
             /*
-            ALCALDE
+            Pedidos
             */
-            Alcalde alcalde1 = new Alcalde();
-            alcalde1.setNombre("Pabel Muñoz");
-            alcalde1.setPartido("RC");
-            alcalde1.setFechaPosesion(LocalDate.now());
-            alcalde1.setCiudad(ciudad1);
+            Pedido p1 = new Pedido();
+            p1.setTotal(Double.valueOf(10));
+            p1.setCliente(cliente);
+            p1.setFecha(LocalDate.of(2026, 06, 15));
 
-            this.alcaldeService.crearAlcalde(alcalde1);
+            Pedido p2 = new Pedido();
+            p2.setTotal(Double.valueOf(100));
+            p2.setCliente(cliente);
+            p2.setFecha(LocalDate.of(2026, 06, 17));
 
-            /*
-            CIUDAD ALCALDE
-            */
-            Ciudad ciudad2 = new Ciudad();
-            ciudad2.setCodigo("GYE");
-            ciudad2.setNombre("Guayaquil");
+            List<Pedido> pedidos = new ArrayList<>();
+            pedidos.add(p1);
+            pedidos.add(p2);
 
-            Alcalde alcalde2 = new Alcalde();
-            alcalde2.setNombre("Alquiles Alvarez");
-            alcalde2.setPartido("RC");
-            alcalde2.setFechaPosesion(LocalDate.now());
+            cliente.setPedidos(pedidos);
 
-            this.alcaldeService.crearAlcaldeCiudad(alcalde2, ciudad2);
+            // Insert mediante service
+
+            this.clienteService.crearCliente(cliente);
 
             System.out.println("\n***Cerrando app***\n");
 
