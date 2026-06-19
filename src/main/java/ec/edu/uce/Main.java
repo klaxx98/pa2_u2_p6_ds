@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import ec.edu.uce.application.service.ClienteService;
-import ec.edu.uce.domain.model.Cliente;
-import ec.edu.uce.domain.model.Pedido;
+import ec.edu.uce.application.service.DirectorService;
+import ec.edu.uce.domain.model.Director;
+import ec.edu.uce.domain.model.Pelicula;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -22,7 +22,7 @@ public class Main {
     public static class App implements QuarkusApplication {
 
         @Inject
-        private ClienteService clienteService;
+        private DirectorService directorService;
 
         @Override
         public int run(String... args) throws Exception {
@@ -30,34 +30,30 @@ public class Main {
             System.out.println("***Abriendo app***");
 
             /*
-            Cliente
+            DIRECTOR
             */
-            Cliente cliente = new Cliente();
-            cliente.setCedula("1234567890");
-            cliente.setNombre("David");
+            Director director = new Director();
+            director.setNombre("Steven Spielberg");
+            director.setNacionalidad("Estadounidense");
 
             /*
-            Pedidos
+            PELICULAS
             */
-            Pedido p1 = new Pedido();
-            p1.setTotal(Double.valueOf(10));
-            p1.setCliente(cliente);
-            p1.setFecha(LocalDate.of(2026, 06, 15));
+            Pelicula p1 = new Pelicula();
+            p1.setTitulo("Jurassic Park");
+            p1.setFechaEstreno(LocalDate.of(1993, 6, 9));
 
-            Pedido p2 = new Pedido();
-            p2.setTotal(Double.valueOf(100));
-            p2.setCliente(cliente);
-            p2.setFecha(LocalDate.of(2026, 06, 17));
+            Pelicula p2 = new Pelicula();
+            p2.setTitulo("La Guerra de los Mundos");
+            p2.setFechaEstreno(LocalDate.of(2005, 6, 23));
 
-            List<Pedido> pedidos = new ArrayList<>();
-            pedidos.add(p1);
-            pedidos.add(p2);
+            List<Pelicula> peliculas = new ArrayList<>();
+            peliculas.add(p1);
+            peliculas.add(p2);
 
-            cliente.setPedidos(pedidos);
+            director.setPeliculas(peliculas);
 
-            // Insert mediante service
-
-            this.clienteService.crearCliente(cliente);
+            this.directorService.crearDirector(director);
 
             System.out.println("\n***Cerrando app***\n");
 
