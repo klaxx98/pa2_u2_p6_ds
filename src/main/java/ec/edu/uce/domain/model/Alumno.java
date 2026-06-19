@@ -30,7 +30,7 @@ public class Alumno {
     @JoinTable(name="alumno_materia",
                 joinColumns=@JoinColumn(name="alma_id_alumno"),
                 inverseJoinColumns=@JoinColumn(name="alma_id_materia")
-            )
+    )
     private List<Materia> materias;
 
     public Alumno(Integer id, String nombre) {

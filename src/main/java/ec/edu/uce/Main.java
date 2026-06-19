@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import ec.edu.uce.application.service.DirectorService;
-import ec.edu.uce.domain.model.Director;
-import ec.edu.uce.domain.model.Pelicula;
+import ec.edu.uce.application.service.DoctorService;
+import ec.edu.uce.domain.model.Doctor;
+import ec.edu.uce.domain.model.Paciente;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -22,7 +22,7 @@ public class Main {
     public static class App implements QuarkusApplication {
 
         @Inject
-        private DirectorService directorService;
+        private DoctorService doctorService;
 
         @Override
         public int run(String... args) throws Exception {
@@ -30,30 +30,46 @@ public class Main {
             System.out.println("***Abriendo app***");
 
             /*
-            DIRECTOR
+            DOCTORES
             */
-            Director director = new Director();
-            director.setNombre("Steven Spielberg");
-            director.setNacionalidad("Estadounidense");
+            Doctor d1 = new Doctor();
+            d1.setNombre("Doctor 1");
+            d1.setEspecialidad("General");
+            d1.setConsultorio("A1");
+
+            Doctor d2 = new Doctor();
+            d2.setNombre("Doctor 2");
+            d2.setEspecialidad("Cardiología");
+
+            List<Doctor> doctores = new ArrayList<>();
+            doctores.add(d1);
 
             /*
-            PELICULAS
+            PACIENTES
             */
-            Pelicula p1 = new Pelicula();
-            p1.setTitulo("Jurassic Park");
-            p1.setFechaEstreno(LocalDate.of(1993, 6, 9));
+            Paciente p1 = new Paciente();
+            p1.setCedula("0123456789");
+            p1.setNombre("Paciente 1");
+            p1.setFechaNacimiento(LocalDate.of(2000, 01, 01));
 
-            Pelicula p2 = new Pelicula();
-            p2.setTitulo("La Guerra de los Mundos");
-            p2.setFechaEstreno(LocalDate.of(2005, 6, 23));
+            Paciente p2 = new Paciente();
+            p2.setCedula("9876543210");
+            p2.setNombre("Paciente 2");
+            p2.setFechaNacimiento(LocalDate.of(2005, 05, 05));
 
-            List<Pelicula> peliculas = new ArrayList<>();
-            peliculas.add(p1);
-            peliculas.add(p2);
+            List<Paciente> pacientes = new ArrayList<>();
+            pacientes.add(p1);
+            pacientes.add(p2);
 
-            director.setPeliculas(peliculas);
+            /*
+            DOCTOR-PACIENTE
+            */
+            d1.setPacientes(pacientes);
+            p1.setDoctores(doctores);
+            p2.setDoctores(doctores);
 
-            this.directorService.crearDirector(director);
+            // AGREGAR USANDO SERVICE
+            // this.doctorService.crearDoctor(d1);
 
             System.out.println("\n***Cerrando app***\n");
 
