@@ -5,5 +5,6 @@ import ec.edu.uce.domain.model.Alumno;
 public interface AlumnoRepository {
 
     public void create(Alumno alumno);
+    public Alumno findById(Integer id);
 
 }

@@ -18,4 +18,9 @@ public class AlumnoService {
         
     }
 
+    public Alumno buscarPorId(Integer id) {
+        return this.alumnoRepository.findById(id);
+        
+    }
+
 }

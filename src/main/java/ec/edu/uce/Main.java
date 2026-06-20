@@ -1,12 +1,11 @@
 package ec.edu.uce;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-import ec.edu.uce.application.service.DoctorService;
-import ec.edu.uce.domain.model.Doctor;
-import ec.edu.uce.domain.model.Paciente;
+import ec.edu.uce.application.service.AlumnoService;
+import ec.edu.uce.application.service.MateriaService;
+import ec.edu.uce.domain.model.Alumno;
+import ec.edu.uce.domain.model.Materia;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -22,54 +21,91 @@ public class Main {
     public static class App implements QuarkusApplication {
 
         @Inject
-        private DoctorService doctorService;
+        private AlumnoService alumnoService;
+
+        @Inject
+        private MateriaService materiaService;
 
         @Override
         public int run(String... args) throws Exception {
 
-            System.out.println("***Abriendo app***");
+            System.out.println("\n***Abriendo app***\n");
+            
+            // Alumno con dos materias
 
             /*
-            DOCTORES
+            ALUMNO
             */
-            Doctor d1 = new Doctor();
-            d1.setNombre("Doctor 1");
-            d1.setEspecialidad("General");
-            d1.setConsultorio("A1");
-
-            Doctor d2 = new Doctor();
-            d2.setNombre("Doctor 2");
-            d2.setEspecialidad("Cardiología");
-
-            List<Doctor> doctores = new ArrayList<>();
-            doctores.add(d1);
-
+            /* Alumno a1 = new Alumno();
+            a1.setNombre("David"); */
+            
             /*
-            PACIENTES
+            MATERIAS
             */
-            Paciente p1 = new Paciente();
-            p1.setCedula("0123456789");
-            p1.setNombre("Paciente 1");
-            p1.setFechaNacimiento(LocalDate.of(2000, 01, 01));
+            /* Materia m1 = new Materia();
+            m1.setNombre("P. Avanzada");
+            m1.setNumeroCreditos(25);
 
-            Paciente p2 = new Paciente();
-            p2.setCedula("9876543210");
-            p2.setNombre("Paciente 2");
-            p2.setFechaNacimiento(LocalDate.of(2005, 05, 05));
+            Materia m2 = new Materia();
+            m2.setNombre("P. Web");
+            m2.setNumeroCreditos(20);
 
-            List<Paciente> pacientes = new ArrayList<>();
-            pacientes.add(p1);
-            pacientes.add(p2);
+            List<Materia> materiasA1 = new ArrayList<>();
+            List<Materia> materiasA2 = new ArrayList<>(); */
 
-            /*
-            DOCTOR-PACIENTE
-            */
-            d1.setPacientes(pacientes);
-            p1.setDoctores(doctores);
-            p2.setDoctores(doctores);
+            
+            /* materiasA1 = List.of(m1, m2);
+            a1.setMaterias(materiasA1); */
 
-            // AGREGAR USANDO SERVICE
-            // this.doctorService.crearDoctor(d1);
+                // Insert mediante AlumnoService
+                //this.alumnoService.crearAlumno(a1);
+            
+            // Materia con dos alumnos
+            /* Materia m3 = new Materia();
+            m3.setNombre("P. Distribuida");
+            m3.setNumeroCreditos(8);
+
+            Alumno a2 = new Alumno();
+            a2.setNombre("Alexander");
+            a2.setMaterias(List.of(m3));
+
+            Alumno a3 = new Alumno();
+            a3.setNombre("Salazar");
+            a3.setMaterias(List.of(m3));
+
+            m3.setAlumnos(List.of(a2, a3)); */
+
+                // Insert mediante MateriaService
+                //this.materiaService.crearMateria(m3);
+            
+            Materia m4 = new Materia();
+            m4.setNombre("P. Avanzada");
+            m4.setNumeroCreditos(30);
+
+            Materia m5 = new Materia();
+            m5.setNombre("P. Web");
+            m5.setNumeroCreditos(25);
+
+            Alumno a4 = new Alumno();
+            a4.setNombre("David");
+            a4.setMaterias(List.of(m4, m5));
+
+            Alumno a5 = new Alumno();
+            a5.setNombre("Alexander");
+            a5.setMaterias(List.of(m4));
+
+            m4.setAlumnos(List.of(a4, a5));
+
+            // Buscar Alumnos por Id de Materia
+
+            /* this.materiaService.crearMateria(m4);
+            System.out.println(this.materiaService.buscarPorId(1));
+            this.materiaService.buscarPorId(1).getAlumnos().forEach(System.out::println); */
+
+            // Buscar Materias por Id de Alumno
+            this.alumnoService.crearAlumno(a4);
+            System.out.println(this.alumnoService.buscarPorId(1));
+            this.alumnoService.buscarPorId(1).getMaterias().forEach(System.out::println);
 
             System.out.println("\n***Cerrando app***\n");
 

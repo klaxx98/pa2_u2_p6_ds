@@ -18,4 +18,10 @@ public class AlumnoRepositoryImpl implements AlumnoRepository {
 
     }
 
+    @Override
+    public Alumno findById(Integer id) {
+        return this.em.find(Alumno.class, id);
+
+    }
+
 }
