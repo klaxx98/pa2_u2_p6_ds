@@ -18,4 +18,10 @@ public class DoctorRepositoryImpl implements DoctorRepository {
         
     }
 
+    @Override
+    public Doctor findById(Integer id) {
+        return this.em.find(Doctor.class, id);
+        
+    }
+
 }

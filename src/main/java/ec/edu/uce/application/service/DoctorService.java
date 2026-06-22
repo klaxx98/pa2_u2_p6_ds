@@ -18,4 +18,9 @@ public class DoctorService {
 
     }
 
+    public Doctor buscarPorId(Integer id) {
+        return this.doctorRepository.findById(id);
+        
+    }
+
 }
