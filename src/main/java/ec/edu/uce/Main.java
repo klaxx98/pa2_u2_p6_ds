@@ -1,12 +1,10 @@
 package ec.edu.uce;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.math.BigDecimal;
 
-import ec.edu.uce.application.service.DoctorService;
-import ec.edu.uce.application.service.PacienteService;
-import ec.edu.uce.domain.model.Doctor;
-import ec.edu.uce.domain.model.Paciente;
+import ec.edu.uce.application.service.CuentaService;
+import ec.edu.uce.application.service.TransferenciaService;
+import ec.edu.uce.domain.model.CuentaBancaria;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -22,67 +20,44 @@ public class Main {
     public static class App implements QuarkusApplication {
 
         @Inject
-        private DoctorService doctorService;
+        private CuentaService cuentaService;
 
         @Inject
-        private PacienteService pacienteService;
+        private TransferenciaService transferenciaService;
 
         @Override
         public int run(String... args) throws Exception {
 
             System.out.println("\n***Abriendo app***\n");
 
-            // Doctor con dos pacientes
+            CuentaBancaria c1 = new CuentaBancaria();
+            c1.setCedula("0123456789");
+            c1.setApellido("Salazar");
+            c1.setNombre("David");
+            c1.setSaldo(BigDecimal.valueOf(500.0));
+            c1.setTipoCuenta("Ahorros");
+            c1.setNumeroCuenta("11111");
 
-            Doctor d1 = new Doctor();
-            d1.setNombre("Ramiro Ramirez");
-            d1.setEspecialidad("Cardiología");
-            d1.setConsultorio("AA11");
+            CuentaBancaria c2 = new CuentaBancaria();
+            c2.setCedula("9876543210");
+            c2.setApellido("Intriago");
+            c2.setNombre("Alexander");
+            c2.setSaldo(BigDecimal.valueOf(100.0));
+            c2.setTipoCuenta("Ahorros");
+            c2.setNumeroCuenta("22222");
 
-            Paciente p1 = new Paciente();
-            p1.setCedula("0123456789");
-            p1.setNombre("Pedrito");
-            p1.setFechaNacimiento(LocalDate.of(2000, 1, 1));
+            this.cuentaService.crearCuenta(c1);
+            this.cuentaService.crearCuenta(c2);
 
-            Paciente p2 = new Paciente();
-            p2.setCedula("9876543210");
-            p2.setNombre("Juanita");
-            p2.setFechaNacimiento(LocalDate.of(2006, 6, 15));
+            System.out.println(this.cuentaService.buscarPorNumeroCuenta("11111"));
+            System.out.println(this.cuentaService.buscarPorNumeroCuenta("22222"));
 
-            d1.setPacientes(List.of(p1, p2));
+            this.transferenciaService.realizarTransferencia("11111", "22222", BigDecimal.valueOf(10.0));
 
-                this.doctorService.crearDoctor(d1);
+            System.out.println(this.cuentaService.buscarPorNumeroCuenta("11111"));
+            System.out.println(this.cuentaService.buscarPorNumeroCuenta("22222"));
 
-            // Paciente con dos doctores
-
-            Doctor d2 = new Doctor();
-            d2.setNombre("John Jackson");
-            d2.setEspecialidad("Traumatología");
-            d2.setConsultorio("BB22");
-
-            Doctor d3 = new Doctor();
-            d3.setNombre("Jack Johnson");
-            d3.setEspecialidad("Pediatría");
-            d3.setConsultorio("CC33");
-
-            Paciente p3 = new Paciente();
-            p3.setCedula("0147852369");
-            p3.setNombre("Luisito");
-            p3.setFechaNacimiento(LocalDate.of(2020, 12, 12));
-
-            p3.setDoctores(List.of(d2, d3));
-
-                this.pacienteService.crearPaciente(p3);
-
-            // Buscar Doctores por Id de Paciente
-
-            System.out.println(this.pacienteService.buscarPorId(3));
-            this.pacienteService.buscarPorId(3).getDoctores().forEach(System.out::println);
-
-            // Buscar Pacientes por Id de Doctor
-
-            System.out.println(this.doctorService.buscarPorId(1));
-            this.doctorService.buscarPorId(1).getPacientes().forEach(System.out::println);
+            // REVISAR CAPTURAS EN CARPETA /resources taller 25
 
             System.out.println("\n***Cerrando app***\n");
 
