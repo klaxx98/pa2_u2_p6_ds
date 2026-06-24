@@ -3,6 +3,7 @@ package ec.edu.uce.infrastructure.repository;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import ec.edu.uce.domain.model.CuentaBancaria;
 import ec.edu.uce.domain.model.Transferencia;
@@ -42,11 +43,13 @@ public class TransferenciaRepositoryImpl implements TransferenciaRepository {
         CuentaBancaria cuentaDestino = this.cR.findByNumeroCuenta(destino);
 
         if (cuentaOrigen == null || cuentaDestino == null) {
-            throw new IllegalArgumentException("Una o ambas cuentas no existen");
+            System.out.println("Una o ambas cuentas no existen");
+            return;
         }
 
         if (cuentaOrigen.getSaldo().compareTo(monto) < 0) {
-            throw new IllegalArgumentException("Saldo insuficiente");
+            System.out.println("Saldo insuficiente");
+            return;
         }
 
         // Debito a la cuenta origen

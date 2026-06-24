@@ -52,7 +52,7 @@ public class Main {
             System.out.println(this.cuentaService.buscarPorNumeroCuenta("11111"));
             System.out.println(this.cuentaService.buscarPorNumeroCuenta("22222"));
 
-            this.transferenciaService.realizarTransferencia("11111", "22222", BigDecimal.valueOf(10.0));
+            this.transferenciaService.realizarTransferencia("11111", "22222", BigDecimal.valueOf(100.0));
 
             System.out.println(this.cuentaService.buscarPorNumeroCuenta("11111"));
             System.out.println(this.cuentaService.buscarPorNumeroCuenta("22222"));
